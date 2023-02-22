@@ -18,14 +18,13 @@ metadata.create_all(engine)
 
 @app.route('/')
 def hello():
-	balance = float(request.args.get('balance'))
-	account = request.args.get('account')
 	@after_this_request
 	def add_header(response):
 		response.headers.add('Access-Control-Allow-Origin', '*')
 		return response
-	
 
+	balance = float(request.args.get('balance'))
+	account = request.args.get('account')
 	users = metadata.tables['users']
 	stmt = select((users.columns.coupon_code)).where( users.columns.user_id==account)
 	dbCouponCode = conn.execute(stmt).fetchall()
