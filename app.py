@@ -23,8 +23,10 @@ def hello():
 		response.headers.add('Access-Control-Allow-Origin', '*')
 		return response
 
-	balance = float(request.args.get('balance'))
-	account = request.args.get('account')
+	clientBalance = request.args.get('balance')
+	clientAccount = request.args.get('account')
+	balance = float(clientBalance) if clientBalance else 0
+	account = clientAccount if clientAccount else 'invalid'
 	users = metadata.tables['users']
 	stmt = select((users.columns.coupon_code)).where( users.columns.user_id==account)
 	dbCouponCode = conn.execute(stmt).fetchall()
