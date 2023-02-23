@@ -34,7 +34,7 @@ def hello():
 	if dbCouponCode:
 		return {'couponCode':dbCouponCode[0][0]}
 	else:
-		if balance == 0:
+		if balance > 0:
 			couponCode = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(10))
 			users = metadata.tables['users']
 			values_list = [{'user_id':account, 'coupon_code':couponCode}]
